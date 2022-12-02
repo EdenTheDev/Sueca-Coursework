@@ -15,7 +15,8 @@ class card:
             return "3"
         if self.rank == "Q":
             return "2"
-        if self.rank == "
+        if self.rank == "8" or "9" or "10":
+            return "Invalid card symbol"
             
     def higher_than(self, other, s, t):
         return""
