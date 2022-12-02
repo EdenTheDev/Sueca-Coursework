@@ -89,4 +89,4 @@ def rank_higher_than(r1,r2):
 #print(rank_higher_than("K", "Q"))
 #print(rank_higher_than("J", "7"))
 #print(rank_higher_than("4", "4"))
-print(rank_higher_than("8", "7"))
+#print(rank_higher_than("8", "7"))

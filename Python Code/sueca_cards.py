@@ -5,11 +5,18 @@ class card:
         
     def points(self):
         self= self.upper()
-        
+        if self.rank == "A":
+            return "11"
+        if self.rank == "7":
+            return "10"
+        if self.rank == "K":
+            return "4"
+        if self.rank == "J":
+            return "3"
         if self.rank == "Q":
-            return "2 Points"
-        if self.rank == ""
-        
+            return "2"
+        if self.rank == "
+            
     def higher_than(self, other, s, t):
         return""
     
