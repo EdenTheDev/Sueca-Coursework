@@ -3,15 +3,15 @@ class ValueError(Exception):
 
 def valid_suit(s):
     s=s.upper()
-    valid_suits = ["H", "C", "S", "D"]
-    if s in valid_suits:
+    validSuits = ["H", "C", "S", "D"]
+    if s in validSuits:
         return True
     else:
         return False
 def valid_rank(r):
     r=r.upper()
-    valid_ranks = ["A", "2", "3", "4", "5", "6", "7", "Q", "J", "K"]
-    if r in valid_ranks:
+    validRanks = ["A", "2", "3", "4", "5", "6", "7", "Q", "J", "K"]
+    if r in validRanks:
         return True
     else:
         return False
