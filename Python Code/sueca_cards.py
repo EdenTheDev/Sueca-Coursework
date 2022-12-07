@@ -1,41 +1,5 @@
-class card:
-    def __init__(self, rank, suit):
-        self.rank= rank
-        self.suit= suit
-        
-    def points(self):
-        self= self.upper()
-        if self.rank == "A":
-            return "11"
-        if self.rank == "7":
-            return "10"
-        if self.rank == "K":
-            return "4"
-        if self.rank == "J":
-            return "3"
-        if self.rank == "Q":
-            return "2"
-        if self.rank == "8" or "9" or "10":
-            return "0"
-        else:
-            raise CardInvalid(f"Invalid suit symbol {self}")
+from sueca_suit_ranks import *
 
-            
-    def higher_than(self, other, s, t):
-        if self.suit == other.suit:
-            if self.rank > other.rank:
-                return True
-            else:
-                return False
-
-        elif self.suit != other.suit:
-            return "different suits"
-            
-    
-    def show(self):
-        card =(self.rank+self.suit)
-        return card
-    
 class CardInvalid(Exception):
     pass
        
@@ -47,13 +11,71 @@ def parseCard(cs: str):
                 ]
 
     if cs in cardList:
-        print("test")
-        return card(cs[0],cs[1])
+        new = Card(cs[0], cs[1])
+        return new
     elif len(cs) != 2:
-        raise CardInvalid(f"Invalid card length {cs}")
+        raise CardInvalid(f"Card {cs} is invalid! \n A card string representation must contain 2 characters only")
     else:
-        raise CardInvalid(f"Invalid card symbol: {cs}")
+        raise CardInvalid(f"Invalid card symbol: {cs[0]}")
     
+class Card:
+    rank: str
+    suit: str
+    def __init__(self, rank, suit): 
+        """initialize class with attributes rank and suit"""
+        self.rank= rank
+        self.suit= suit
+        
+    def points(self): 
+        if rank_points(self.show()) == 0:
+            print(self.rank+self.suit)
+        elif valid_rank(self.show()) == False:
+            raise CardInvalid(f"Invalid suit symbol {self}") #run custom exception error from class CardInvalid
+        else:
+            print(rank_points(self))
+        
+       
+             
+
+    def higher_than(self, other, s, t):        
+        if self.suit == other.suit:
+            """compare the points returned from each instance"""
+            if self.points() > other.points():
+                return True
+            elif self.points() < other.points():
+                return False
+            else:
+                """cards must be same so this is an impossible instance"""
+                return CardInvalid(f"Invalid card symbol each card must be unique ({self} : {other} are the same)")
+
+        elif self.suit != other.suit: #different suits
+            """suit are different""" 
+            if self.suit == s:
+                """this is a lead suit card"""
+                if self.points() > s.points():
+                    return True
+                else:
+                    """this is a lead suit but the rank is too low to win"""
+                    return False
+        elif self.suit == t: #this is the trump card
+            """this is the trump card it is stronger than any other card and wins"""
+            return True 
+        
+        else:
+            return CardInvalid(f"Invalid card type {self}")
+    
+    def show(self):
+        currentCard =(self.rank+self.suit)
+        print(currentCard)
+        return currentCard
 
 
-print(parseCard("KS"))                  
+
+#KS = parseCard("KS")
+#JS = parseCard("JS")
+# print(KS.points())
+# print(KS.higher_than(JS, "S", "D"))
+#parseCard("2C").show()
+#parseCard("8C").show()
+#parseCard("QSD").show()
+#parseCard("2C").points()
