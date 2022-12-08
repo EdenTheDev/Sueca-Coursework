@@ -1,4 +1,4 @@
-from sueca_suit_ranks import *
+from sueca_suits_ranks import *
 
 class CardInvalid(Exception):
     pass
@@ -12,11 +12,11 @@ def parseCard(cs: str):
 
     if cs in cardList:
         new = Card(cs[0], cs[1])
-        return new
+        return new 
     elif len(cs) != 2:
         raise CardInvalid(f"Card {cs} is invalid! \n A card string representation must contain 2 characters only")
     else:
-        raise CardInvalid(f"Invalid card symbol: {cs[0]}")
+        raise CardInvalid(f"Invalid rank symbol: {cs[0]}")
     
 class Card:
     rank: str
@@ -34,9 +34,6 @@ class Card:
         else:
             print(rank_points(self))
         
-       
-             
-
     def higher_than(self, other, s, t):        
         if self.suit == other.suit:
             """compare the points returned from each instance"""
@@ -66,16 +63,13 @@ class Card:
     
     def show(self):
         currentCard =(self.rank+self.suit)
-        print(currentCard)
         return currentCard
 
 
-
-#KS = parseCard("KS")
-#JS = parseCard("JS")
-# print(KS.points())
-# print(KS.higher_than(JS, "S", "D"))
 #parseCard("2C").show()
 #parseCard("8C").show()
 #parseCard("QSD").show()
 #parseCard("2C").points()
+#parseCard("KS").points()
+
+#print(parseCard("2C").show())

@@ -66,14 +66,11 @@ def rank_higher_than(r1,r2):
         raise ValueError(f"Invalid rank symbol: {r2}") 
     if r1 and r2 in rankDict:
         if rankDict[r1] > rankDict[r2]:
-            print("r1 is greater than r2")
-            return True
+            return print(True)
         elif rankDict [r1] < rankDict[r2]:
-            print("r1 is less than r2")
-            return False  
+            return print(False)
         elif rankDict[r1] == rankDict[r2]:
-            print("equal ranks")
-            return False       
+            return print(False)      
 #print(valid_suit("C"))
 #print(valid_suit("S"))
 #print(valid_suit("P"))
@@ -84,9 +81,9 @@ def rank_higher_than(r1,r2):
 #print(rank_points("7"))
 #print(rank_points("5"))
 #print(rank_points("9"))
-#print(rank_higher_than("3", "2"))
-#print(rank_higher_than("6", "3"))
-#print(rank_higher_than("K", "Q"))
-#print(rank_higher_than("J", "7"))
-#print(rank_higher_than("4", "4"))
-#print(rank_higher_than("8", "7"))
+#rank_higher_than("3", "2")
+#rank_higher_than("6", "3")
+#rank_higher_than("K", "Q")
+#rank_higher_than("J", "7")
+#rank_higher_than("4", "4")
+#rank_higher_than("8", "7")
