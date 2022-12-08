@@ -9,10 +9,15 @@ class Trick:
         for card in self.trick:
                 trickPoints+= rank_points(card.show()[0])
         print(trickPoints)
-    def trick_winner(t):
+    def trick_winner(t, self):
+        list = []
         trick = ["AH", "2D", "5H", "2H"]
-        winning_card = trick[0]
-        for card in trick:
+        trump = ["A", "D", "C", "H"]
+        suit = ["A", "K", "J", "Q", "7", "6", "5", "4", "3", "2"]
+        lists = []
+        #matching = [s for s in list if any("S" in s for list in trump)]
+        #winning_card = self.trick[0]
+        for card in self.trick:
             if card[-1] == t:
                 winning_card = card
                 break
@@ -71,11 +76,12 @@ def parseGameFile(fname):
 tc, ts = parseGameFile("game1.sueca")
 #for each in ts:
  #   print(each)
-#ts[0].show()
-#ts[2].show()
-#ts[-1].show()
+tc.show()
+ts[0].show()
+ts[2].show()
+ts[-1].show()
 #parseTrick("AH 2D 5H 2H").show()
 #parseTrick("AH 2D 5H 2H").points()
 #parseGameFile("game1.sueca")
-parseTrick("AS 2S 7S JS").trick_winner("D")
-
+parseTrick("AS 2S 7S JS").show()
+parseTrick("AS 2S 7S JS").points()

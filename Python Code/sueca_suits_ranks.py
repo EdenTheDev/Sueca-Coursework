@@ -81,7 +81,7 @@ def rank_higher_than(r1,r2):
 #print(rank_points("7"))
 #print(rank_points("5"))
 #print(rank_points("9"))
-#rank_higher_than("3", "2")
+#print(rank_higher_than("3", "2"))
 #rank_higher_than("6", "3")
 #rank_higher_than("K", "Q")
 #rank_higher_than("J", "7")
