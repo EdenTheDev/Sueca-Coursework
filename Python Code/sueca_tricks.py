@@ -9,22 +9,38 @@ class Trick:
         for card in self.trick:
                 trickPoints+= rank_points(card.show()[0])
         print(trickPoints)
-    def trick_winner(t, self):
+        
+    def trick_winner(self, t):
         list = []
-        trick = ["AH", "2D", "5H", "2H"]
-        trump = ["A", "D", "C", "H"]
-        suit = ["A", "K", "J", "Q", "7", "6", "5", "4", "3", "2"]
-        lists = []
+        trump = t
+        player1 = self.trick[0] 
+        print(player1)
+        player2 = self.trick[1]
+        print(player2)
+        player3 = self.trick[2]
+        print(player3)
+        player4 = self.trick[3]
+        print(player4)
+        print(self.trick)
+        playerCounter = 0
+        #lead_suit = self.trick[0][1]
+        #lead_rank = self.trick[0][0]
+        lead_card = self.trick[0].show()
+        for card in self.trick:
+            if card.show()[1] == t and rank_points(card.show()[0]) > rank_points(lead_card[0]):
+                return (playerCounter + 1)
+           # elif card[1] == lead_suit and rank_points(str(card[0])) > rank_points(str(lead_rank)):
+        playercounter += 1
         #matching = [s for s in list if any("S" in s for list in trump)]
         #winning_card = self.trick[0]
-        for card in self.trick:
-            if card[-1] == t:
-                winning_card = card
-                break
-            elif card[-1] == winning_card[-1] and int(card[:-1]) > int(winning_card[:-1]):
-                winning_card = card
-
-        return trick.index(winning_card) + 1
+        #for card in self.trick:
+         #   if card[-1] == t:
+          #      winning_card = card
+           #     break
+            #elif card[-1] == winning_card[-1] and int(card[:-1]) > int(winning_card[:-1]):
+             #   winning_card = card
+#
+ #       return trick.index(winning_card) + 1
 
     def show(self):
         #print(self.trick)
@@ -73,15 +89,16 @@ def parseGameFile(fname):
     #print(trickList)
     return (trumpInstance, trickList)
 #parseTrick("AH 2D 5H KH").points()
-tc, ts = parseGameFile("game1.sueca")
+#tc, ts = parseGameFile("game1.sueca")
 #for each in ts:
  #   print(each)
-tc.show()
-ts[0].show()
-ts[2].show()
-ts[-1].show()
+#tc.show()
+#ts[0].show()
+#ts[2].show()
+#ts[-1].show()
 #parseTrick("AH 2D 5H 2H").show()
 #parseTrick("AH 2D 5H 2H").points()
 #parseGameFile("game1.sueca")
-parseTrick("AS 2S 7S JS").show()
-parseTrick("AS 2S 7S JS").points()
+#parseTrick("AS 2S 7S JS").show()
+#parseTrick("AS 2S 7S JS").points()
+parseTrick("AH 2D 5H 2H").trick_winner("D")
