@@ -5,16 +5,16 @@ def valid_suit(s):
     s=s.upper()
     validSuits = ["H", "C", "S", "D"]
     if s in validSuits:
-        return True
+        print(True)
     else:
-        return False
+        print(False)
 def valid_rank(r):
     r=r.upper()
     validRanks = ["A", "2", "3", "4", "5", "6", "7", "Q", "J", "K"]
     if r in validRanks:
-        return True
+        print(True)
     else:
-        return False
+        print(False)
 
 def suit_full_name(s):
     s=s.upper()
@@ -24,7 +24,7 @@ def suit_full_name(s):
                "D": "Diamonds"
                 }
     if s in nameDict:
-        return True
+        print(True)
     else:
         raise ValueError(f"Invalid suit symbol: {s}")
 def rank_points(r):
@@ -42,7 +42,7 @@ def rank_points(r):
                 "6": 0
                 }
     if r in pointsDict:
-        return pointsDict[r]
+        print(pointsDict[r])
     else:
         raise ValueError(f"Invalid rank symbol: {r}") 
 
@@ -66,11 +66,11 @@ def rank_higher_than(r1,r2):
         raise ValueError(f"Invalid rank symbol: {r2}") 
     if r1 and r2 in rankDict:
         if rankDict[r1] > rankDict[r2]:
-            return print(True)
+            print(True)
         elif rankDict [r1] < rankDict[r2]:
-            return print(False)
+            print(False)
         elif rankDict[r1] == rankDict[r2]:
-            return print(False)      
+            print(False)      
 #print(valid_suit("C"))
 #print(valid_suit("S"))
 #print(valid_suit("P"))

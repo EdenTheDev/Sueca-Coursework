@@ -27,49 +27,55 @@ class Card:
         self.suit= suit
         
     def points(self): 
-        if rank_points(self.show()) == 0:
-            print(self.rank+self.suit)
-        elif valid_rank(self.show()) == False:
-            raise CardInvalid(f"Invalid suit symbol {self}") #run custom exception error from class CardInvalid
-        else:
-            print(rank_points(self))
+        print(rank_points(self.rank))
         
-    def higher_than(self, other, s, t):        
-        if self.suit == other.suit:
-            """compare the points returned from each instance"""
-            if self.points() > other.points():
-                return True
-            elif self.points() < other.points():
-                return False
-            else:
-                """cards must be same so this is an impossible instance"""
-                return CardInvalid(f"Invalid card symbol each card must be unique ({self} : {other} are the same)")
+    def higher_than(self, other, s, t):      
+        if self.suit == t:
+            print(True)
+        elif other.suit == t:
+            print(False)
 
-        elif self.suit != other.suit: #different suits
-            """suit are different""" 
-            if self.suit == s:
-                """this is a lead suit card"""
-                if self.points() > s.points():
-                    return True
-                else:
-                    """this is a lead suit but the rank is too low to win"""
-                    return False
-        elif self.suit == t: #this is the trump card
-            """this is the trump card it is stronger than any other card and wins"""
-            return True 
-        
+        elif self.suit == s and other.suit == s:
+            if rank_points(self.rank) > rank_points(other.rank):
+                print(True)
+            else:
+                print(False)
+        elif self.suit == s and other.suit != s:
+            print(True)
         else:
-            return CardInvalid(f"Invalid card type {self}")
+            print(False)
+        #     if self.points() > other.points():
+        #         return True
+        #     elif self.points() < other.points():
+        #         return False
+        #     else:
+        #         """cards must be same so this is an impossible instance"""
+        #         return CardInvalid(f"Invalid card symbol each card must be unique ({self} : {other} are the same)")
+
+        # elif self.suit != other.suit: #different suits
+        #     """suit are different""" 
+        #     if self.suit == s:
+        #         """this is a lead suit card"""
+        #         if self.points() > s.points():
+        #             return True
+        #         else:
+        #             """this is a lead suit but the rank is too low to win"""
+        #             return False
+        # elif self.suit == t: #this is the trump card
+        #     """this is the trump card it is stronger than any other card and wins"""
+        #     return True 
+        
+        # else:
+        #     return CardInvalid(f"Invalid card type {self}")
     
     def show(self):
-        currentCard =(self.rank+self.suit)
-        return currentCard
+        print(self.rank+self.suit)
 
-
-#parseCard("2C").show()
+parseCard("2C").show()
 #parseCard("8C").show()
 #parseCard("QSD").show()
-#parseCard("2C").points()
-#parseCard("KS").points()
+#parseCard("7S").points()
+parseCard("KS").points()
 
 #print(parseCard("2C").show())
+parseCard("7H").higher_than(parseCard("2C"), "C", "D")
