@@ -16,7 +16,7 @@ def parseCard(cs: str):
     elif len(cs) != 2:
         raise CardInvalid(f"Card {cs} is invalid! \n A card string representation must contain 2 characters only")
     else:
-        raise CardInvalid(f"Invalid rank symbol: {cs[0]}")
+        raise CardInvalid(f"Card {cs} is invalid!\n Invalid rank symbol: {cs[0]}")
     
 class Card:
     rank: str
@@ -27,55 +27,38 @@ class Card:
         self.suit= suit
         
     def points(self): 
-        print(rank_points(self.rank))
+        return rank_points(self.rank)
         
-    def higher_than(self, other, s, t):      
+    def higher_than(self, other, s, t):
         if self.suit == t:
-            print(True)
+            return True
         elif other.suit == t:
-            print(False)
-
-        elif self.suit == s and other.suit == s:
-            if rank_points(self.rank) > rank_points(other.rank):
-                print(True)
-            else:
-                print(False)
-        elif self.suit == s and other.suit != s:
-            print(True)
-        else:
-            print(False)
-        #     if self.points() > other.points():
-        #         return True
-        #     elif self.points() < other.points():
-        #         return False
-        #     else:
-        #         """cards must be same so this is an impossible instance"""
-        #         return CardInvalid(f"Invalid card symbol each card must be unique ({self} : {other} are the same)")
-
-        # elif self.suit != other.suit: #different suits
-        #     """suit are different""" 
-        #     if self.suit == s:
-        #         """this is a lead suit card"""
-        #         if self.points() > s.points():
-        #             return True
-        #         else:
-        #             """this is a lead suit but the rank is too low to win"""
-        #             return False
-        # elif self.suit == t: #this is the trump card
-        #     """this is the trump card it is stronger than any other card and wins"""
-        #     return True 
+            return False
+        if self.suit == s and other.suit == s:
+            return rank_higher_than(self.rank, other.rank)
+               
+        elif self.suit != s and self.suit != t and other.suit == s:
+            return False
         
-        # else:
-        #     return CardInvalid(f"Invalid card type {self}")
+        elif self.suit == s and other.suit != s:
+            return True
+        elif self.suit != s and self.suit != t and other.suit != s and other.suit != t:
+            return rank_higher_than(self.rank, other.rank)
+        #    if rank_higher_than(self.rank, other.rank):
+         #       return True
+          #  else:
+           #     return False
     
     def show(self):
-        print(self.rank+self.suit)
+        return(self.rank+self.suit)
 
-parseCard("2C").show()
+#parseCard("2C").show()
 #parseCard("8C").show()
 #parseCard("QSD").show()
 #parseCard("7S").points()
-parseCard("KS").points()
+#parseCard("KS").points()
 
 #print(parseCard("2C").show())
-parseCard("7H").higher_than(parseCard("2C"), "C", "D")
+#parseCard("7H").higher_than(parseCard("2C"), "C", "D")
+
+#print (parseCard("7S").higher_than(parseCard("2C"), "C", "D"))

@@ -2,103 +2,55 @@ from sueca_cards import *
 class Trick:
     def __init__(self, trick): #trump
         self.trick = trick
+        #self.points = self.points()
         #self.trump = trump
 
     def points(self):
         trickPoints = 0
-        for card in self.trick:
-                trickPoints+= rank_points(card.show()[0])
-        print(trickPoints)
-        
+        for card in self.trick.split():
+            trickPoints += rank_points(card[0])
+        return trickPoints
+
     def trick_winner(self, t):
-        list = []
-        trump = t
-        player1 = self.trick[0] 
-        print(player1)
-        player2 = self.trick[1]
-        print(player2)
-        player3 = self.trick[2]
-        print(player3)
-        player4 = self.trick[3]
-        print(player4)
-        print(self.trick)
-        playerCounter = 0
-        #lead_suit = self.trick[0][1]
-        #lead_rank = self.trick[0][0]
-        lead_card = self.trick[0].show()
-        for card in self.trick:
-            if card.show()[1] == t and rank_points(card.show()[0]) > rank_points(lead_card[0]):
-                return (playerCounter + 1)
-           # elif card[1] == lead_suit and rank_points(str(card[0])) > rank_points(str(lead_rank)):
-        playercounter += 1
-        #matching = [s for s in list if any("S" in s for list in trump)]
-        #winning_card = self.trick[0]
-        #for card in self.trick:
-         #   if card[-1] == t:
-          #      winning_card = card
-           #     break
-            #elif card[-1] == winning_card[-1] and int(card[:-1]) > int(winning_card[:-1]):
-             #   winning_card = card
-#
- #       return trick.index(winning_card) + 1
+        cards = self.trick.split()
+        winner = 0
+        i = 1
+        for i in range(1,4):
+            if (parseCard(cards[i]).higher_than(parseCard(cards[winner]), "ZZZ", t)):
+                winner = i
+        return(winner + 1)
 
     def show(self):
-        #print(self.trick)
-        print(self.trick[0].show(), self.trick[1].show(), self.trick[2].show(), self.trick[3].show())
-    
+        return self.trick
 
 def parseTrick(ts):
-    validCards = [  "2H","3H","4H","5H","6H","7H","QH","JH","KH","AH",
-                    "2C","3C","4C","5C","6C","7C","QC","JC","KC","AC",
-                    "2S","3S","4S","5S","6S","7S","QS","JS","KS","AS",
-                    "2D","3D","4D","5D","6D","7D","QD","JD","KD", "AD"
-                 ]
-    cardList = []
-    temp_ts = ts.split()
-    if len(temp_ts) == 4:
-        
-        """the trick is 4 elements"""
-        for x in temp_ts:
-            if x in validCards:
-                """all elements in temp_ts are valid"""
-                for i in temp_ts:
-                    add = parseCard(i)
-                    cardList.append(add) 
-                newInstance = Trick(cardList)
-                return newInstance
+
+    cardList = ["2H","3H","4H","5H","6H","7H","QH","JH","KH","AH",
+                "2C","3C","4C","5C","6C","7C","QC","JC","KC","AC",
+                "2S","3S","4S","5S","6S","7S","QS","JS","KS","AS",
+                "2D","3D","4D","5D","6D","7D","QD","JD","KD", "AD"
+                ]
+
+    # Check if exactly 4 strings of length 2, seperated by 3 spaces, and each string of 2 is a valid card
+    for card in ts.split(" "):
+        if len(card) != 2 or card not in cardList:
+            if not valid_rank(card[0]):
+                raise CardInvalid(f"Card {card} is invalid!\nInvalid rank symbol: {card[0]}")
             else:
-                raise ValueError(f"the given string {ts} is invalid")
-    else:
-        raise ValueError(f"the given string {ts} is invalid")
-    
+                raise CardInvalid(f"Card {card} is invalid!\nInvalid suit symbol: {card[1]}")
+    if len(ts) != 11 or ts.count(" ") != 3:
+        raise ValueError(f"A trick string must comprise four cards only; the given trick is: {ts}")
+    trick = Trick(ts)
+    return trick
+
 def parseGameFile(fname):
-    cardList = []
-    trickList = []
-    listA = []
+    # Return a pair made up of the parsed trump card (object of Card class) and a list of objects of class Trick
+    # Pair = (trump-card, list of tricks)
+    trick_list = []
     with open(fname, "r") as file:
         cardList = file.read().splitlines()
-        trump = cardList.pop(0)
-        finalList = cardList[:]
-        for line in finalList:
-            for each in line.split():
-                add = parseCard(each)
-                listA.append(add)
-                trickList.append(Trick(listA))
-            listA = []
-    trumpInstance = parseCard(trump)
-    #print(trickList)
-    return (trumpInstance, trickList)
-#parseTrick("AH 2D 5H KH").points()
-#tc, ts = parseGameFile("game1.sueca")
-#for each in ts:
- #   print(each)
-#tc.show()
-#ts[0].show()
-#ts[2].show()
-#ts[-1].show()
-#parseTrick("AH 2D 5H 2H").show()
-#parseTrick("AH 2D 5H 2H").points()
-#parseGameFile("game1.sueca")
-#parseTrick("AS 2S 7S JS").show()
-#parseTrick("AS 2S 7S JS").points()
-parseTrick("AH 2D 5H 2H").trick_winner("D")
+        trump = parseCard(cardList.pop(0))
+        for line in cardList:
+            trick_list.append(parseTrick(line))
+    return (trump, trick_list)
+
